@@ -10,7 +10,7 @@
 #include <vector>
 #include "Screen_manager.h"
 
-using namespace std;
+using namespace std;  
 
 //move cursor
 void cursorYX(int y, int x)
@@ -79,27 +79,20 @@ void Screen_manager::print_share(){
                 
             }
         } 
-        if (type_event[i] == 'r')
+        if (type_event[i] == 'r') 
         {
-             int frame_diff = curr_frame - frame_event[i];
-            if(frame_diff>=0)
-            {
-            
-                enemy_r r_(frame_event[i], 10, 1, y_event[i], x_event[i]);
-                board[r_.y][r_.x] = 'r';
-                
-                if ((curr_frame - frame_event[i]) % 3 == 0)
-                {
-                    if (r_.y < (height - 1))
-                    {
-                        board[r_.y][r_.x] = ' ';
-                        r_.y++;
-                        board[r_.y][r_.x] = 'r';
-                    }
-                }
-                
-            }
-        } 
+        int frame_diff = curr_frame - frame_event[i];
+        
+        if (frame_diff >= 0) 
+        {
+            int y = y_event[i] + (frame_diff / 3);
+            int x = x_event[i];
+            enemy_r r_(frame_event[i], 10, 1, y, x);
+            board[r_.y-1][r_.x] = ' ';
+            board[r_.y][r_.x] = 'r';
+        }
+    }
+
         
     }     
     
