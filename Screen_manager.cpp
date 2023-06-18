@@ -68,12 +68,41 @@ void Screen_manager::print_share(){
 
     for(int i=0;i<num_events;i++)
     {
-        if(type_event[i]=='n')
+        if (type_event[i] == 'n')
         {
-           enemy_n n_(frame_event[i],10,1,y_event[i],x_event[i]); 
-           board[n_.y][n_.x]='n';
-        }
-    }
+             int frame_diff = curr_frame - frame_event[i];
+            if(frame_diff>=0)
+            {
+            
+                    enemy_n n_(frame_event[i], 10, 1, y_event[i], x_event[i]);
+                    board[n_.y][n_.x] = 'n';
+                
+            }
+        } 
+        if (type_event[i] == 'r')
+        {
+             int frame_diff = curr_frame - frame_event[i];
+            if(frame_diff>=0)
+            {
+            
+                enemy_r r_(frame_event[i], 10, 1, y_event[i], x_event[i]);
+                board[r_.y][r_.x] = 'r';
+                
+                if ((curr_frame - frame_event[i]) % 3 == 0)
+                {
+                    if (r_.y < (height - 1))
+                    {
+                        board[r_.y][r_.x] = ' ';
+                        r_.y++;
+                        board[r_.y][r_.x] = 'r';
+                    }
+                }
+                
+            }
+        } 
+        
+    }     
+    
 
 }
 
@@ -96,7 +125,7 @@ void Screen_manager::print(int ch){ //ascii
     else if(ch=='a'){ //left
         if(this->my_plane.y >=0 && this->my_plane.y <(height-1) && this->my_plane.x >1 && this->my_plane.x < (width-1)){
             board[this->my_plane.y][this->my_plane.x]=' ';
-            this->my_plane.x -=1;
+            this->my_plane.x -=1;  
             board[this->my_plane.y][this->my_plane.x]='M';
         }
     }
