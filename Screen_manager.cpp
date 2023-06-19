@@ -43,7 +43,7 @@ void Screen_manager::print_share(){
     create_frame = this->my_plane.create_frame_my_plane;
     check_frame = this->my_plane.check_frame_my_plane;
     while ((curr_frame-create_frame)/shot_frame - check_frame > 0){ //bullet create
-        Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame);
+        Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x,this->my_plane.power_buff, check_frame);
         this->my_plane.bullet.push_back(bullet);
 
         for(auto iter=this->my_plane.bullet.begin(); iter<this->my_plane.bullet.end(); ){
@@ -87,11 +87,11 @@ void Screen_manager::print_share(){
         {
             int y = y_event[i] + (frame_diff / 3);
             int x = x_event[i];
-            enemy_r r_(frame_event[i], 10, 1, y, x);
+            enemy_r r_(frame_event[i], 5, 2, y, x);
             board[r_.y-1][r_.x] = ' ';
             board[r_.y][r_.x] = 'r';
         }
-    }
+        }
 
         
     }     
