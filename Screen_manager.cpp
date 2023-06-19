@@ -74,25 +74,62 @@ void Screen_manager::print_share(){
             if(frame_diff>=0)
             {
             
-                    enemy_n n_(frame_event[i], 10, 1, y_event[i], x_event[i]);
+                    enemy_n n_(frame_event[i], 10, 1, y_event[i], x_event[i],i);
                     board[n_.y][n_.x] = 'n';
                 
             }
         } 
         if (type_event[i] == 'r') 
         {
-        int frame_diff = curr_frame - frame_event[i];
+            int frame_diff = curr_frame - frame_event[i];
         
-        if (frame_diff >= 0) 
+            if (frame_diff >= 0) 
+            {
+                int y = y_event[i] + (frame_diff / 3);
+                int x = x_event[i];
+                enemy_r r_(frame_event[i], 5, 2, y, x,i,3,0);
+                board[r_.y-1][r_.x] = ' ';
+                board[r_.y][r_.x] = 'r';
+            }
+        }
+        if (type_event[i] == 's') 
         {
-            int y = y_event[i] + (frame_diff / 3);
-            int x = x_event[i];
-            enemy_r r_(frame_event[i], 5, 2, y, x);
-            board[r_.y-1][r_.x] = ' ';
-            board[r_.y][r_.x] = 'r';
+            int frame_diff = curr_frame - frame_event[i];
+        
+            if (frame_diff >= 0) 
+            {
+                int y = y_event[i] + (frame_diff / 9);
+                int x = x_event[i];
+                enemy_s s_(frame_event[i], 4, 3, y, x,i,9,1);
+                board[s_.y-1][s_.x] = ' ';
+                board[s_.y][s_.x] = 's';
+            }
         }
+        if (type_event[i] == 'd') 
+        {
+            int frame_diff = curr_frame - frame_event[i];
+        
+            if (frame_diff >= 0) 
+            {
+                int y = y_event[i] + (frame_diff / 3);
+                int x = x_event[i];
+                enemy_d d_(frame_event[i], 5, 4, y, x,i,3,1);
+                board[d_.y-1][d_.x] = ' ';
+                board[d_.y][d_.x] = 'd';
+            }
         }
-
+        if (type_event[i] == 'a') 
+        {
+            int frame_diff = curr_frame - frame_event[i];
+        
+            if (frame_diff >= 0) 
+            {
+                int y = y_event[i];
+                int x = x_event[i];
+                enemy_a a_(frame_event[i], 5, 4, y, x,i,3,1);
+                board[a_.y][a_.x] = 'a';
+            }
+        }
         
     }     
     
